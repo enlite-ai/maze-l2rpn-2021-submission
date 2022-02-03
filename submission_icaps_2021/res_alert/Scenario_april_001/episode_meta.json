@@ -1,0 +1,11 @@
+{
+    "agent_seed": 1708891582,
+    "backend_type": "PandaPowerBackend_l2rpn_icaps_2021_small",
+    "chronics_max_timestep": "8062",
+    "chronics_path": "/home/anton/data_grid2op/l2rpn_icaps_2021_small/chronics/Scenario_april_001",
+    "cumulative_reward": -1.0,
+    "env_seed": 1572415299,
+    "env_type": "Environment_l2rpn_icaps_2021_small",
+    "grid_path": "/home/anton/data_grid2op/l2rpn_icaps_2021_small/grid.json",
+    "nb_timestep_played": 1583
+}

@@ -1,0 +1,113 @@
+env:
+  _target_: maze_l2rpn.env.maze_env.Grid2OpEnvironment
+  core_env:
+    _target_: maze_l2rpn.env.core_env.Grid2OpCoreEnvironment
+    power_grid: l2rpn_icaps_2021_small
+    difficulty: competition
+    chronics_config:
+      id_selection: null
+      fast_forward: null
+      from_file: null
+    reward:
+      _target_: grid2op.Reward.LinesCapacityReward.LinesCapacityReward
+      rewards:
+      - name: L2RPNSandBoxScore
+        _target_: grid2op.Reward.L2RPNSandBoxScore.L2RPNSandBoxScore
+        kpi: true
+      - name: RedispReward
+        _target_: grid2op.Reward.RedispReward.RedispReward
+        kpi: true
+      - name: LinesCapacityReward
+        _target_: grid2op.Reward.LinesCapacityReward.LinesCapacityReward
+        kpi: true
+      - name: FlatReward
+        _target_: grid2op.Reward.FlatReward.FlatReward
+        kpi: true
+      - name: GameplayReward
+        _target_: grid2op.Reward.GameplayReward.GameplayReward
+        kpi: true
+      - name: EconomicReward
+        _target_: grid2op.Reward.EconomicReward.EconomicReward
+        kpi: true
+      - name: LinesReconnectedReward
+        _target_: grid2op.Reward.LinesReconnectedReward.LinesReconnectedReward
+        kpi: true
+    reward_aggregator:
+      _target_: maze_l2rpn.reward.default.RewardAggregator
+      reward_scale: 1.0
+  action_conversion:
+  - _target_: maze_l2rpn.space_interfaces.action_conversion.dict_link_prediction.ActionConversion
+  observation_conversion:
+  - _target_: maze_l2rpn.space_interfaces.observation_conversion.dict_features.ObservationConversion
+wrappers:
+  maze_l2rpn.wrappers.critical_state_observer_simulate_wrapper.CriticalStateObserverSimulateWrapper:
+    max_rho: 0.98
+    max_rho_simulate: 1.1
+  maze.core.wrappers.observation_stack_wrapper.ObservationStackWrapper:
+    stack_config:
+    - observation: features
+      keep_original: false
+      tag: null
+      delta: false
+      stack_steps: 2
+    - observation: topology
+      keep_original: false
+      tag: null
+      delta: false
+      stack_steps: 2
+  maze.core.wrappers.observation_normalization.observation_normalization_wrapper.ObservationNormalizationWrapper:
+    default_strategy: maze.core.wrappers.observation_normalization.normalization_strategies.mean_zero_std_one.MeanZeroStdOneObservationNormalizationStrategy
+    default_strategy_config:
+      clip_range:
+      - null
+      - null
+      axis: null
+    sampling_policy:
+      _target_: maze_l2rpn.agents.graph_link_env_random_policy.RandomLinkPredictionEnvPolicy
+    statistics_dump: obs_norm_statistics.pkl
+    default_statistics: null
+    exclude:
+    - topology
+    - link_to_set_mask
+    - critical_state
+    - already_selected_actions
+    - already_selected_noop
+    manual_config:
+      features:
+        strategy: maze.core.wrappers.observation_normalization.normalization_strategies.mean_zero_std_one.MeanZeroStdOneObservationNormalizationStrategy
+        strategy_config:
+          clip_range:
+          - -3
+          - 3
+          axis:
+          - -3
+          - -2
+  maze_l2rpn.wrappers.multi_agent_sub_changes_wrapper.MultiAgentSubChangesWrapper:
+    max_link_changes: 3
+  maze.core.wrappers.monitoring_wrapper.MazeEnvMonitoringWrapper:
+    observation_logging: false
+    action_logging: true
+    reward_logging: true
+model:
+  _target_: maze.perception.models.custom_model_composer.CustomModelComposer
+  distribution_mapper_config:
+  - action_space: gym.spaces.Box
+    distribution: maze.distributions.squashed_gaussian.SquashedGaussianProbabilityDistribution
+  policy:
+    _target_: maze.perception.models.policies.ProbabilisticPolicyComposer
+    networks:
+    - _target_: maze_l2rpn.models.actor.PolicyNet
+      non_lin: torch.nn.ReLU
+      hidden_units:
+      - 512
+      - 256
+    substeps_with_separate_agent_nets: []
+  critic: ~
+log_base_dir: maze-runs
+input_dir: ~
+project:
+  name: l2rpn-challenge
+seeding:
+  env_base_seed: 709676728
+  agent_base_seed: 350642512
+  cudnn_determinism_flag: false

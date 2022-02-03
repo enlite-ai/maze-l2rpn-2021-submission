@@ -1,0 +1,110 @@
+{
+  "score_config": {
+    "min_losses_ratio": 0.8,
+    "key_score": "grid_operation_cost",
+    "scale_alarm_score": 100.0,
+    "weight_op_score": 0.7,
+    "weight_alarm_score": 0.3,
+    "total_timesteps": 48408
+  },
+  "seed": 7572,
+  "nb_scenario": 24,
+  "episodes_info": {
+    "apr_17_1": {
+      "length": 2017,
+      "name": "apr_17_1"
+    },
+    "apr_17_2": {
+      "length": 2017,
+      "name": "apr_17_2"
+    },
+    "aug_21_1": {
+      "length": 2017,
+      "name": "aug_21_1"
+    },
+    "aug_21_2": {
+      "length": 2017,
+      "name": "aug_21_2"
+    },
+    "dec_18_1": {
+      "length": 2017,
+      "name": "dec_18_1"
+    },
+    "dec_18_2": {
+      "length": 2017,
+      "name": "dec_18_2"
+    },
+    "feb_42_1": {
+      "length": 2017,
+      "name": "feb_42_1"
+    },
+    "feb_42_2": {
+      "length": 2017,
+      "name": "feb_42_2"
+    },
+    "jan_27_1": {
+      "length": 2017,
+      "name": "jan_27_1"
+    },
+    "jan_27_2": {
+      "length": 2017,
+      "name": "jan_27_2"
+    },
+    "jul_13_1": {
+      "length": 2017,
+      "name": "jul_13_1"
+    },
+    "jul_13_2": {
+      "length": 2017,
+      "name": "jul_13_2"
+    },
+    "jun_04_1": {
+      "length": 2017,
+      "name": "jun_04_1"
+    },
+    "jun_04_2": {
+      "length": 2017,
+      "name": "jun_04_2"
+    },
+    "mar_28_1": {
+      "length": 2017,
+      "name": "mar_28_1"
+    },
+    "mar_28_2": {
+      "length": 2017,
+      "name": "mar_28_2"
+    },
+    "may_47_1": {
+      "length": 2017,
+      "name": "may_47_1"
+    },
+    "may_47_2": {
+      "length": 2017,
+      "name": "may_47_2"
+    },
+    "nov_29_1": {
+      "length": 2017,
+      "name": "nov_29_1"
+    },
+    "nov_29_2": {
+      "length": 2017,
+      "name": "nov_29_2"
+    },
+    "oct_03_1": {
+      "length": 2017,
+      "name": "oct_03_1"
+    },
+    "oct_03_2": {
+      "length": 2017,
+      "name": "oct_03_2"
+    },
+    "sep_06_1": {
+      "length": 2017,
+      "name": "sep_06_1"
+    },
+    "sep_06_2": {
+      "length": 2017,
+      "name": "sep_06_2"
+    }
+  }
+}
